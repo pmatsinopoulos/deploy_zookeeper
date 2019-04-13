@@ -26,5 +26,9 @@ This creates the VPC together with the following:
 1. 1 Network ACLs
 1. 1 Security Group
 
+## Destroy VPC
 
+``` bash
+$ ./scripts/destroy-vpc.sh vpc-zookeepers
+```
 
