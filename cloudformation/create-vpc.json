@@ -1,0 +1,28 @@
+{
+  "Parameters": {
+    "Environment": {
+      "Type": "String",
+      "Description": "The environment resources are going to be launched in"
+    }
+  },
+  "Resources": {
+    "VPC1": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPC-1"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
