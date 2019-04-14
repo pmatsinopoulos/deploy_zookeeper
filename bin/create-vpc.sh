@@ -7,3 +7,4 @@ source ${CONFIGURATION_FILE}
 
 aws cloudformation create-stack --stack-name ${STACK_NAME} --template-body file://${CLOUD_FORMATION_FILE} \
 --parameters ParameterKey=Environment,ParameterValue=${ENVIRONMENT}
+aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME}

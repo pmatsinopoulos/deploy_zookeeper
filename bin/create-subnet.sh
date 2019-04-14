@@ -11,3 +11,6 @@ ParameterKey=Environment,ParameterValue=${ENVIRONMENT} \
 ParameterKey=SubnetName,ParameterValue=${SUBNET_NAME} \
 ParameterKey=AvailabilityZone,ParameterValue=${AVAILABILITY_ZONE} \
 ParameterKey=CidrBlock,ParameterValue=${CIDR_BLOCK}
+
+aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME}
+
