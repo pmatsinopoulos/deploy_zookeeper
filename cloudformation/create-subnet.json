@@ -1,0 +1,44 @@
+{
+  "Parameters": {
+    "SubnetName": {
+      "Description": "Give a subnet name",
+      "Type": "String"
+    },
+    "VpcId": {
+      "Description": "The VPC ID the subnet will be created into",
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "AvailabilityZone": {
+      "Description": "The Availability zone the subnet will be created in",
+      "Type": "AWS::EC2::AvailabilityZone::Name"
+    },
+    "CidrBlock": {
+      "Description": "The CIDR block this subnet will consume",
+      "Type": "String"
+    },
+    "Environment": {
+      "Description": "The environment you tag the resource with, e.g. 'development', or 'production'",
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "SUBNET": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {"Ref": "VpcId"},
+        "AvailabilityZone": {"Ref": "AvailabilityZone"},
+        "CidrBlock": {"Ref": "CidrBlock"},
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {"Ref": "SubnetName"}
+          },
+          {
+            "Key": "Environment",
+            "Value": {"Ref": "Environment"}
+          }
+        ]
+      }
+    }
+  }
+}

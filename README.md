@@ -17,7 +17,7 @@ AWS_SECRET_ACCESS_KEY=<aws secret access key>
 The following creates the VPC stack with stack name `vpc-zookeepers` on `development` environment.
 
 ```bash
-$ ./scripts/create-vpc.sh config/vpc-stack-configuration.cfg
+$ ./bin/create-vpc.sh config/vpc.cfg
 ```
 
 This creates the VPC together with the following:
@@ -29,6 +29,20 @@ This creates the VPC together with the following:
 ## Destroy VPC
 
 ``` bash
-$ ./scripts/destroy-vpc.sh config/vpc-stack-configuration.cfg
+$ ./bin/destroy-vpc.sh config/vpc.cfg
 ```
 
+## The Whole Creation Sequence
+
+``` bash
+$ ./bin/create-vpc.sh config/vpc.cfg
+$ ./bin/create-subnet.sh config/subnet-1.cfg
+```
+
+## The Whole Destroy Sequence
+
+```bash
+$ ./bin/destroy-subnet.sh config/subnet-1.cfg
+$ ./bin/destroy-vpc.sh config/vpc.cfg
+
+```
