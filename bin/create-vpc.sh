@@ -2,9 +2,7 @@
 
 source $(pwd)/.env
 
-STACK_NAME=$1
-CLOUD_FORMATION_FILE=$2
-ENVIRONMENT=$3
+source $1
 
 aws cloudformation create-stack --stack-name ${STACK_NAME} --template-body file://${CLOUD_FORMATION_FILE} \
 --parameters ParameterKey=Environment,ParameterValue=${ENVIRONMENT}

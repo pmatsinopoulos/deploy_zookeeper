@@ -2,6 +2,6 @@
 
 source $(pwd)/.env
 
-STACK_NAME=$1
+source $1
 
 aws cloudformation delete-stack --stack-name ${STACK_NAME}

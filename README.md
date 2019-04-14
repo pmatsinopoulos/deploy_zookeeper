@@ -7,9 +7,9 @@ This is still work in progress.
 A `.env` file exporting the following should exist in the root folder of this project:
 
 ```bash
-export AWS_DEFAULT_REGION=<region>
-export AWS_ACCESS_KEY_ID=<aws access key id>
-export AWS_SECRET_ACCESS_KEY=<aws secret access key>
+AWS_DEFAULT_REGION=<region>
+AWS_ACCESS_KEY_ID=<aws access key id>
+AWS_SECRET_ACCESS_KEY=<aws secret access key>
 ```
 
 ## Create VPC 
@@ -17,7 +17,7 @@ export AWS_SECRET_ACCESS_KEY=<aws secret access key>
 The following creates the VPC stack with stack name `vpc-zookeepers` on `development` environment.
 
 ```bash
-$ ./scripts/create-vpc.sh vpc-zookeepers cloudformation/create-vpc.json development
+$ ./scripts/create-vpc.sh config/vpc-stack-configuration.cfg
 ```
 
 This creates the VPC together with the following:
@@ -29,6 +29,6 @@ This creates the VPC together with the following:
 ## Destroy VPC
 
 ``` bash
-$ ./scripts/destroy-vpc.sh vpc-zookeepers
+$ ./scripts/destroy-vpc.sh config/vpc-stack-configuration.cfg
 ```
 
