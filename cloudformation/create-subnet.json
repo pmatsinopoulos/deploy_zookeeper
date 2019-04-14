@@ -4,10 +4,6 @@
       "Description": "Give a subnet name",
       "Type": "String"
     },
-    "VpcId": {
-      "Description": "The VPC ID the subnet will be created into",
-      "Type": "AWS::EC2::VPC::Id"
-    },
     "AvailabilityZone": {
       "Description": "The Availability zone the subnet will be created in",
       "Type": "AWS::EC2::AvailabilityZone::Name"
@@ -25,7 +21,7 @@
     "SUBNET": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
-        "VpcId": {"Ref": "VpcId"},
+        "VpcId": {"Fn::ImportValue": "VpcZookeepersId"},
         "AvailabilityZone": {"Ref": "AvailabilityZone"},
         "CidrBlock": {"Ref": "CidrBlock"},
         "Tags": [

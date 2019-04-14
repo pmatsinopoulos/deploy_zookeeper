@@ -24,5 +24,14 @@
         ]
       }
     }
+  },
+  "Outputs": {
+    "VpcId": {
+      "Description": "The VPC ID Created",
+      "Value": {"Ref": "VPC1"},
+      "Export": {
+        "Name": "VpcZookeepersId"
+      }
+    }
   }
 }
