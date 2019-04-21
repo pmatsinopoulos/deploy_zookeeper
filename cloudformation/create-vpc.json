@@ -158,7 +158,7 @@
           ],
           "NetworkInterfaces": [
             {
-              "AssociatePublicIpAddress": false,
+              "AssociatePublicIpAddress": true,
               "DeleteOnTermination": true,
               "Description": "Primary network interface",
               "DeviceIndex": 0,
