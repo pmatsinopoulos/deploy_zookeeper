@@ -57,6 +57,72 @@
         }
       }
     },
+    "Subnet1": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC1"
+        },
+        "AvailabilityZone": "eu-north-1a",
+        "CidrBlock": "10.0.0.0/24",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "subnet-1"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ]
+      }
+    },
+    "Subnet2": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC1"
+        },
+        "AvailabilityZone": "eu-north-1b",
+        "CidrBlock": "10.0.1.0/24",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "subnet-2"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ]
+      }
+    },
+    "Subnet3": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC1"
+        },
+        "AvailabilityZone": "eu-north-1c",
+        "CidrBlock": "10.0.2.0/24",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "subnet-3"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ]
+      }
+    },
     "Ec2LaunchTemplate": {
       "Type": "AWS::EC2::LaunchTemplate",
       "Properties": {
@@ -64,11 +130,6 @@
           "Ref": "Ec2LaunchTemplateName"
         },
         "LaunchTemplateData": {
-          "SecurityGroups": [
-            {
-              "Ref": "SecurityGroup1"
-            }
-          ],
           "TagSpecifications": [
             {
               "ResourceType": "instance",
@@ -82,20 +143,46 @@
               ]
             }
           ],
-          "ImageId": "ami-034ac67d",
-          "KeyName": "ec2-demo-2",
-          "Placement": {
-            "Tenancy": "default"
-          },
+          "EbsOptimized": false,
+          "BlockDeviceMappings": [
+            {
+              "DeviceName": "/dev/xvda",
+              "Ebs": {
+                "Encrypted": false,
+                "DeleteOnTermination": true,
+                "SnapshotId": "snap-03d1cb8c053b989c2",
+                "VolumeSize": 30,
+                "VolumeType": "gp2"
+              }
+            }
+          ],
           "NetworkInterfaces": [
             {
-              "DeviceIndex": 0,
-              "Description": "Primary network interface",
+              "AssociatePublicIpAddress": false,
               "DeleteOnTermination": true,
-              "Ipv6Addresses": [],
-              "AssociatePublicIpAddress": false
+              "Description": "Primary network interface",
+              "DeviceIndex": 0,
+              "Groups": [
+                {"Ref": "SecurityGroup1"}
+              ],
+              "Ipv6Addresses": []
             }
-          ]
+          ],
+          "ImageId": "ami-d16fe6af",
+          "KeyName": "ec2-demo-2",
+          "Monitoring": {
+            "Enabled": false
+          },
+          "Placement": {
+            "GroupName": "",
+            "Tenancy": "default"
+          },
+          "CapacityReservationSpecification": {
+            "CapacityReservationPreference": "none"
+          },
+          "HibernationOptions": {
+            "Configured": false
+          }
         }
       }
     }
