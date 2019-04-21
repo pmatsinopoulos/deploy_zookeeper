@@ -3,6 +3,10 @@
     "Environment": {
       "Type": "String",
       "Description": "The environment resources are going to be launched in"
+    },
+    "Ec2LaunchTemplateName": {
+      "Type": "String",
+      "Description": "The name of the EC2 Launch Template to create"
     }
   },
   "Resources": {
@@ -23,12 +27,85 @@
           }
         ]
       }
+    },
+    "SecurityGroup1": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupName": "ssh-only-all-input-sources",
+        "GroupDescription": "Allows only SSH at port 22 from any input source, public or private",
+        "SecurityGroupIngress": {
+          "CidrIp": "0.0.0.0/0",
+          "Description": "Any public or private IP",
+          "FromPort": 22,
+          "IpProtocol": "TCP",
+          "ToPort": 22
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "ssh-only-all-input-sources"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC1"
+        }
+      }
+    },
+    "Ec2LaunchTemplate": {
+      "Type": "AWS::EC2::LaunchTemplate",
+      "Properties": {
+        "LaunchTemplateName": {
+          "Ref": "Ec2LaunchTemplateName"
+        },
+        "LaunchTemplateData": {
+          "SecurityGroups": [
+            {
+              "Ref": "SecurityGroup1"
+            }
+          ],
+          "TagSpecifications": [
+            {
+              "ResourceType": "instance",
+              "Tags": [
+                {
+                  "Key": "Environment",
+                  "Value": {
+                    "Ref": "Environment"
+                  }
+                }
+              ]
+            }
+          ],
+          "ImageId": "ami-034ac67d",
+          "KeyName": "ec2-demo-2",
+          "Placement": {
+            "Tenancy": "default"
+          },
+          "NetworkInterfaces": [
+            {
+              "DeviceIndex": 0,
+              "Description": "Primary network interface",
+              "DeleteOnTermination": true,
+              "Ipv6Addresses": [],
+              "AssociatePublicIpAddress": false
+            }
+          ]
+        }
+      }
     }
   },
   "Outputs": {
     "VpcId": {
       "Description": "The VPC ID Created",
-      "Value": {"Ref": "VPC1"},
+      "Value": {
+        "Ref": "VPC1"
+      },
       "Export": {
         "Name": "VpcZookeepersId"
       }
