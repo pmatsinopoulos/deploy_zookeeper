@@ -123,6 +123,28 @@
         ]
       }
     },
+    "InternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "InternetGatewayVPC1"
+          },
+          {
+            "Key": "Environment",
+            "Value": {"Ref": "Environment"}
+          }
+        ]
+      }
+    },
+    "InternetGatewayAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {"Ref": "InternetGateway"},
+        "VpcId": {"Ref": "VPC1"}
+      }
+    },
     "Ec2LaunchTemplate": {
       "Type": "AWS::EC2::LaunchTemplate",
       "Properties": {
