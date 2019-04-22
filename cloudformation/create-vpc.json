@@ -145,6 +145,51 @@
         "VpcId": {"Ref": "VPC1"}
       }
     },
+    "RouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {"Ref": "VPC1"},
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "RouteTable"
+          },
+          {
+            "Key": "Environment",
+            "Value": {"Ref": "Environment"}
+          }
+        ]
+      }
+    },
+    "RouteToInternetGateway": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {"Ref": "InternetGateway"},
+        "RouteTableId": {"Ref": "RouteTable"}
+      }
+    },
+    "Subnet1ToInternetGateway": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": {"Ref": "Subnet1"},
+        "RouteTableId": {"Ref": "RouteTable"}
+      }
+    },
+    "Subnet2ToInternetGateway": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": {"Ref": "Subnet2"},
+        "RouteTableId": {"Ref": "RouteTable"}
+      }
+    },
+    "Subnet3ToInternetGateway": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": {"Ref": "Subnet3"},
+        "RouteTableId": {"Ref": "RouteTable"}
+      }
+    },
     "Ec2LaunchTemplate": {
       "Type": "AWS::EC2::LaunchTemplate",
       "Properties": {
