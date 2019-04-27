@@ -235,7 +235,7 @@
               "Ipv6Addresses": []
             }
           ],
-          "ImageId": "ami-d16fe6af",
+          "ImageId": "ami-5e9c1520",
           "KeyName": "ec2-demo-2",
           "Monitoring": {
             "Enabled": false
