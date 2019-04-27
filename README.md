@@ -54,10 +54,5 @@ instance.
 6. Or I may need to use a DNS service that would resolve private names to private ips.
 7. Maybe, I should use an EC2 Launch Template that would install puppet-agent.
 
-After we bring the machine up for the first time:
-2. We need to git pull the repo
-3. We need to apply the puppet manifests
-- This will also install the cron job that would pull any changes every 15 minutes.
-Note that Aws OpsWorks might be something that would help us manage all that puppet related things?
 
 
