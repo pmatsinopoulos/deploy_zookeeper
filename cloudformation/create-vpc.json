@@ -264,6 +264,15 @@
       "Export": {
         "Name": "VpcZookeepersId"
       }
+    },
+    "EC2LaunchTemplate": {
+      "Description": "The EC2 Launch Template to use to launch EC2 machines for zookeeper servers",
+      "Value": {
+        "Ref": "Ec2LaunchTemplate"
+      },
+      "Export": {
+        "Name": "EC2LaunchTemplateForZookeepers"
+      }
     }
   }
 }
