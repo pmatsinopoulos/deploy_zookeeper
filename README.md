@@ -24,19 +24,26 @@ $ ./bin/create-all.sh
 $ ./bin/destroy-all.sh
 ```
 
+## EC2 Launch Template
+
+The VPC creation process creates an EC2 Launch Template. This includes user data. It is a long string which comes out
+of the base64 encoding of the script `cloudformation/user_data.sh`.
+
+## TODO: ...
+
+Automate the process of the generation of the EC2 Launch Template User Data value.
+
 ## Next Step
 
 - Can I create a series of EC2 machines, each one on different subnet? 
--- For example, create 2 EC2 machines on subnet-1,
-                       2 EC2 machines on subnet-2,
-                       2 EC2 machines on subnet-3,
+-- For example, create 1 EC2 machine on subnet-1,
+                       1 EC2 machine on subnet-2,
+                       1 EC2 machine on subnet-3,
 
 Later:
 - Can I create a series of EC2 machines in an auto-scaling group using cloud formation?
 
 When using the UI to launch a template:
-
-ACTION: TODO: I need to assign a public IP to the instance?
 
 1. I have to define the instance type, otherwise, the launch template will not succeed to launch.
 2. I also have to define the subnet because this will put the machine into a subnet.
@@ -44,5 +51,13 @@ ACTION: TODO: I need to assign a public IP to the instance?
 4. However, I can have a private IP address stick to the EC2 instance and every time it restarts in takes the same
 instance.
 5. If I want public IP address to be stick then I might have to use EIP.
+6. Or I may need to use a DNS service that would resolve private names to private ips.
+7. Maybe, I should use an EC2 Launch Template that would install puppet-agent.
+
+After we bring the machine up for the first time:
+2. We need to git pull the repo
+3. We need to apply the puppet manifests
+- This will also install the cron job that would pull any changes every 15 minutes.
+Note that Aws OpsWorks might be something that would help us manage all that puppet related things?
 
 
