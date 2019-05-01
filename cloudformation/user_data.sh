@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source /etc/lsb-release
 wget https://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb
-dpkg -i puppet-release5-${DISTRIB_CODENAME}.deb
+dpkg -i puppet5-release-${DISTRIB_CODENAME}.deb
 apt-get update
 apt-get -y install gcc make git
 apt-get -y install puppet-agent
