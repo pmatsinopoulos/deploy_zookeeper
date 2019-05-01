@@ -9,6 +9,7 @@ echo 'Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
 /opt/puppetlabs/puppet/bin/gem install gpgme --no-rdoc --no-ri
 /opt/puppetlabs/puppet/bin/gem install hiera-eyaml-gpg --no-rdoc --no-ri
 /opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
+cd /opt/puppetlabs/bin && ln -s ../puppet/bin/r10k r10k
 mv /etc/puppetlabs/code/environments/production /etc/puppetlabs/code/environments/production.sample
 cd /etc/puppetlabs/code/environments && git clone https://github.com/pmatsinopoulos/deploy_zookeeper.git production
 /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/puppet/manifests/
