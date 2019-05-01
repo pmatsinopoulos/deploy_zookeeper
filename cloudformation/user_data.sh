@@ -20,4 +20,9 @@ cd /opt/puppetlabs/bin && ln -s ../puppet/bin/generate-puppetfile generate-puppe
 
 mv /etc/puppetlabs/code/environments/production /etc/puppetlabs/code/environments/production.sample
 cd /etc/puppetlabs/code/environments && git clone https://github.com/pmatsinopoulos/deploy_zookeeper.git production
+
+cd production/puppet
+
+r10k puppetfile install --verbose
+
 /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/puppet/manifests/
