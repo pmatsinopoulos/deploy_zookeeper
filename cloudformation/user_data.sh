@@ -6,9 +6,11 @@ apt-get update
 apt-get -y install gcc make git
 apt-get -y install puppet-agent
 echo 'Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/opt/puppetlabs/bin:/opt/puppetlabs/puppet/bin"' >/etc/sudoers.d/puppet
-/opt/puppetlabs/puppet/bin/gem install gpgme --no-rdoc --no-ri
-/opt/puppetlabs/puppet/bin/gem install hiera-eyaml-gpg --no-rdoc --no-ri
-/opt/puppetlabs/puppet/bin/gem install r10k --no-rdoc --no-ri
+cd /opt/puppetlabs/bin && ln -s ../puppet/bin/gem gem
+gem install gpgme --no-rdoc --no-ri
+gem install hiera-eyaml-gpg --no-rdoc --no-ri
+gem install r10k --no-rdoc --no-ri
+gem install generate-puppetfile
 cd /opt/puppetlabs/bin && ln -s ../puppet/bin/r10k r10k
 mv /etc/puppetlabs/code/environments/production /etc/puppetlabs/code/environments/production.sample
 cd /etc/puppetlabs/code/environments && git clone https://github.com/pmatsinopoulos/deploy_zookeeper.git production
