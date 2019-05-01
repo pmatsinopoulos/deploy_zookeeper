@@ -1,1 +1,10 @@
-zookeeper::datalogstore: '/var/zookeeper/transaction_logs'
+---
+version: 5
+
+defaults:
+  datadir: puppet/data
+  data_hash: yaml_data
+
+hierarchy:
+  - name: "Common values"
+    path: "common.yaml"
