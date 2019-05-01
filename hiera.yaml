@@ -1,0 +1,1 @@
+zookeeper::datalogstore: '/var/zookeeper/transaction_logs'
