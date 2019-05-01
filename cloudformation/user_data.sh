@@ -7,6 +7,8 @@ apt-get -y install gcc make git
 apt-get -y install puppet-agent
 echo 'Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/opt/puppetlabs/bin:/opt/puppetlabs/puppet/bin"' >/etc/sudoers.d/puppet
 
+export PATH=$PATH:/opt/puppetlabs/bin
+
 cd /opt/puppetlabs/bin && ln -s ../puppet/bin/gem gem
 
 gem install gpgme --no-rdoc --no-ri
