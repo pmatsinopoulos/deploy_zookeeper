@@ -7,8 +7,12 @@ file { zookeeper_datalog_store_parent_directory_path:
 
 include zookeeper
 
-file { zookeeper_client_in_path:
-  ensure => link,
-  path   => '/usr/local/bin/zkCli.sh',
-  target => '/usr/share/zookeeper/bin/zkCli.sh',
+$zookeeper_bins = ['zkCli.sh', 'zkCleanup.sh', 'zkEnv.sh', 'zkServer.sh']
+
+$zookeeper_bins.each | $bin | {
+  file { zookeeper_client_in_path:
+    ensure => link,
+    path   => "/usr/local/bin/${bin}",
+    target => "/usr/share/zookeeper/bin/${bin}",
+  }
 }
