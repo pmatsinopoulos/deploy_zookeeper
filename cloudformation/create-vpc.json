@@ -211,18 +211,6 @@
             }
           ],
           "EbsOptimized": false,
-          "BlockDeviceMappings": [
-            {
-              "DeviceName": "/dev/sda1",
-              "Ebs": {
-                "Encrypted": false,
-                "DeleteOnTermination": true,
-                "SnapshotId": "snap-0903e7da38397555c",
-                "VolumeSize": 30,
-                "VolumeType": "gp2"
-              }
-            }
-          ],
           "NetworkInterfaces": [
             {
               "AssociatePublicIpAddress": true,
