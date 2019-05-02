@@ -10,5 +10,5 @@ include zookeeper
 file { zookeeper_client_in_path:
   ensure => link,
   path   => '/usr/local/bin/zkClient.sh',
-  target => '/usr/share/zookeeper/bin/zkClient.sh',
+  target => '/usr/share/zookeeper/bin/zkCli.sh',
 }
