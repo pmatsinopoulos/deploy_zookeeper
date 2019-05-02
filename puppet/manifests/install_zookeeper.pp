@@ -1,6 +1,6 @@
 file { zookeeper_datalog_store:
   ensure => directory,
-  path => $zookeeper['datalogstore']
+  path => lookup("zookeeper.datalogstore", String)
 }
 
 include zookeeper
