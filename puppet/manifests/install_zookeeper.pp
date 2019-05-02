@@ -10,7 +10,7 @@ include zookeeper
 $zookeeper_bins = ['zkCli.sh', 'zkCleanup.sh', 'zkEnv.sh', 'zkServer.sh']
 
 $zookeeper_bins.each | $bin | {
-  file { zookeeper_client_in_path:
+  file { "zookeeper_${bin}_link":
     ensure => link,
     path   => "/usr/local/bin/${bin}",
     target => "/usr/share/zookeeper/bin/${bin}",
