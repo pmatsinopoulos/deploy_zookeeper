@@ -28,5 +28,3 @@ cd production/puppet
 r10k puppetfile install --verbose
 
 /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/puppet/manifests/
-
-export PATH=$PATH:/usr/share/zookeeper/bin
