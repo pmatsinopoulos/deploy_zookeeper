@@ -250,7 +250,7 @@
         "Ref": "VPC1"
       },
       "Export": {
-        "Name": "VpcZookeepersId"
+        "Name": {"Fn::Sub": "${AWS::StackName}-VpcZookeepersId"}
       }
     },
     "EC2LaunchTemplate": {
@@ -259,7 +259,7 @@
         "Ref": "Ec2LaunchTemplate"
       },
       "Export": {
-        "Name": "EC2LaunchTemplateForZookeepers"
+        "Name": {"Fn::Sub": "${AWS::StackName}-EC2LaunchTemplateForZookeepers"}
       }
     }
   }
