@@ -211,18 +211,6 @@
             }
           ],
           "EbsOptimized": false,
-          "NetworkInterfaces": [
-            {
-              "AssociatePublicIpAddress": true,
-              "DeleteOnTermination": true,
-              "Description": "Primary network interface",
-              "DeviceIndex": 0,
-              "Groups": [
-                {"Ref": "SecurityGroup1"}
-              ],
-              "Ipv6Addresses": []
-            }
-          ],
           "ImageId": "ami-5e9c1520",
           "KeyName": "ec2-demo-2",
           "Monitoring": {
@@ -253,13 +241,40 @@
         "Name": {"Fn::Sub": "${AWS::StackName}-VpcZookeepersId"}
       }
     },
-    "EC2LaunchTemplate": {
-      "Description": "The EC2 Launch Template to use to launch EC2 machines for zookeeper servers",
+    "Subnet1": {
+      "Description": "The subnet1 of the VPC.",
       "Value": {
-        "Ref": "Ec2LaunchTemplate"
+        "Ref": "Subnet1"
       },
       "Export": {
-        "Name": {"Fn::Sub": "${AWS::StackName}-EC2LaunchTemplateForZookeepers"}
+        "Name": {"Fn::Sub": "${AWS::StackName}-Subnet1"}
+      }
+    },
+    "Subnet2": {
+      "Description": "The subnet1 of the VPC.",
+      "Value": {
+        "Ref": "Subnet2"
+      },
+      "Export": {
+        "Name": {"Fn::Sub": "${AWS::StackName}-Subnet2"}
+      }
+    },
+    "Subnet3": {
+      "Description": "The subnet1 of the VPC.",
+      "Value": {
+        "Ref": "Subnet3"
+      },
+      "Export": {
+        "Name": {"Fn::Sub": "${AWS::StackName}-Subnet3"}
+      }
+    },
+    "SecurityGroup": {
+      "Description": "The security group that will be used to bind EC2 instance network interface.",
+      "Value": {
+        "Ref": "SecurityGroup1"
+      },
+      "Export": {
+        "Name": {"Fn::Sub": "${AWS::StackName}-SecurityGroup"}
       }
     }
   }

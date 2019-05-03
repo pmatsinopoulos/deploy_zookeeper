@@ -12,6 +12,9 @@ AWS_ACCESS_KEY_ID=<aws access key id>
 AWS_SECRET_ACCESS_KEY=<aws secret access key>
 ```
 
+# TODO: Write what privileges the user should have in order to run the scripts.
+# TODO: Think about using "Fn::Base64" instead of doing the encoding offline. 
+
 ## The Whole Creation Sequence
 
 ``` bash

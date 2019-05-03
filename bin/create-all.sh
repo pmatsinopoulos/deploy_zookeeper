@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./bin/create-vpc.sh config/vpc.cfg
+./bin/create-vpc.sh config/zookeepers.cfg

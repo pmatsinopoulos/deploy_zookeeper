@@ -1,0 +1,65 @@
+{
+  "Parameters": {
+    "Ec2LaunchTemplateName": {
+      "Type": "String",
+      "Description": "The EC2 Launch Template to use in order to create the Zookeeper node. This should be the name of an imported value."
+    },
+    "InstanceType": {
+      "Type": "String",
+      "Description": "The EC2 Instance Type to be used."
+    },
+    "SubnetId": {
+      "Type": "String",
+      "Description": "The subnet id to be used for the EC2 Instance. This should be the name of an imported value."
+    },
+    "SecurityGroupName": {
+      "Type": "String",
+      "Description": "The security group that will be used to bind the network interface fo the EC2 instance."
+    },
+    "NodeName": {
+      "Type": "String",
+      "Description": "The EC2 Instance name for the Zookeeper node."
+    }
+  },
+  "Resources": {
+    "ZookeeperNode": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "LaunchTemplate": {
+          "LaunchTemplateName": {
+            "Ref": "Ec2LaunchTemplateName"
+          },
+          "Version": "1"
+        },
+        "InstanceType": {
+          "Ref": "InstanceType"
+        },
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": true,
+            "DeleteOnTermination": true,
+            "Description": "Primary network interface",
+            "DeviceIndex": 0,
+            "Ipv6Addresses": [],
+            "SubnetId": {
+              "Fn::ImportValue": {
+                "Ref": "SubnetId"
+              }
+            },
+            "GroupSet": [
+              {"Fn::ImportValue": {"Ref": "SecurityGroupName"}}
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "NodeName"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
