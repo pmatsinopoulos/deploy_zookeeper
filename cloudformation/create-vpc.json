@@ -7,10 +7,6 @@
     "Ec2LaunchTemplateName": {
       "Type": "String",
       "Description": "The name of the EC2 Launch Template to create"
-    },
-    "Region": {
-      "Type": "String",
-      "Description": "The region in which the VPC will be created. This is needed only for specific resources that require it. For example the Route 53 Private Hosted Zone."
     }
   },
   "Resources": {
@@ -275,7 +271,7 @@
               "Ref": "VPC1"
             },
             "VPCRegion": {
-              "Ref": "Region"
+              "Ref": "AWS::Region"
             }
           }
         ],
