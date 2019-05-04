@@ -7,6 +7,10 @@
     "Ec2LaunchTemplateName": {
       "Type": "String",
       "Description": "The name of the EC2 Launch Template to create"
+    },
+    "Region": {
+      "Type": "String",
+      "Description": "The region in which the VPC will be created. This is needed only for specific resources that require it. For example the Route 53 Private Hosted Zone."
     }
   },
   "Resources": {
@@ -135,7 +139,9 @@
           },
           {
             "Key": "Environment",
-            "Value": {"Ref": "Environment"}
+            "Value": {
+              "Ref": "Environment"
+            }
           }
         ]
       }
@@ -143,14 +149,20 @@
     "InternetGatewayAttachment": {
       "Type": "AWS::EC2::VPCGatewayAttachment",
       "Properties": {
-        "InternetGatewayId": {"Ref": "InternetGateway"},
-        "VpcId": {"Ref": "VPC1"}
+        "InternetGatewayId": {
+          "Ref": "InternetGateway"
+        },
+        "VpcId": {
+          "Ref": "VPC1"
+        }
       }
     },
     "RouteTable": {
       "Type": "AWS::EC2::RouteTable",
       "Properties": {
-        "VpcId": {"Ref": "VPC1"},
+        "VpcId": {
+          "Ref": "VPC1"
+        },
         "Tags": [
           {
             "Key": "Name",
@@ -158,7 +170,9 @@
           },
           {
             "Key": "Environment",
-            "Value": {"Ref": "Environment"}
+            "Value": {
+              "Ref": "Environment"
+            }
           }
         ]
       }
@@ -167,29 +181,45 @@
       "Type": "AWS::EC2::Route",
       "Properties": {
         "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {"Ref": "InternetGateway"},
-        "RouteTableId": {"Ref": "RouteTable"}
+        "GatewayId": {
+          "Ref": "InternetGateway"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        }
       }
     },
     "Subnet1ToInternetGateway": {
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
-        "SubnetId": {"Ref": "Subnet1"},
-        "RouteTableId": {"Ref": "RouteTable"}
+        "SubnetId": {
+          "Ref": "Subnet1"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        }
       }
     },
     "Subnet2ToInternetGateway": {
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
-        "SubnetId": {"Ref": "Subnet2"},
-        "RouteTableId": {"Ref": "RouteTable"}
+        "SubnetId": {
+          "Ref": "Subnet2"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        }
       }
     },
     "Subnet3ToInternetGateway": {
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
-        "SubnetId": {"Ref": "Subnet3"},
-        "RouteTableId": {"Ref": "RouteTable"}
+        "SubnetId": {
+          "Ref": "Subnet3"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        }
       }
     },
     "Ec2LaunchTemplate": {
@@ -231,6 +261,33 @@
           "UserData": "IyEvdXNyL2Jpbi9lbnYgYmFzaApzb3VyY2UgL2V0Yy9sc2ItcmVsZWFzZQp3Z2V0IGh0dHBzOi8vYXB0LnB1cHBldGxhYnMuY29tL3B1cHBldDUtcmVsZWFzZS0ke0RJU1RSSUJfQ09ERU5BTUV9LmRlYgpkcGtnIC1pIHB1cHBldDUtcmVsZWFzZS0ke0RJU1RSSUJfQ09ERU5BTUV9LmRlYgphcHQtZ2V0IHVwZGF0ZQphcHQtZ2V0IC15IGluc3RhbGwgZ2NjIG1ha2UgZ2l0CmFwdC1nZXQgLXkgaW5zdGFsbCBwdXBwZXQtYWdlbnQKZWNobyAnRGVmYXVsdHMgICAgICAgIHNlY3VyZV9wYXRoPSIvdXNyL2xvY2FsL3NiaW46L3Vzci9sb2NhbC9iaW46L3Vzci9zYmluOi91c3IvYmluOi9zYmluOi9iaW46L3NuYXAvYmluOi9vcHQvcHVwcGV0bGFicy9iaW46L29wdC9wdXBwZXRsYWJzL3B1cHBldC9iaW4iJyA+L2V0Yy9zdWRvZXJzLmQvcHVwcGV0CgpleHBvcnQgUEFUSD0kUEFUSDovb3B0L3B1cHBldGxhYnMvYmluCgpjZCAvb3B0L3B1cHBldGxhYnMvYmluICYmIGxuIC1zIC4uL3B1cHBldC9iaW4vZ2VtIGdlbQoKZ2VtIGluc3RhbGwgZ3BnbWUgLS1uby1yZG9jIC0tbm8tcmkKZ2VtIGluc3RhbGwgaGllcmEtZXlhbWwtZ3BnIC0tbm8tcmRvYyAtLW5vLXJpCgpnZW0gaW5zdGFsbCByMTBrIC0tbm8tcmRvYyAtLW5vLXJpCmNkIC9vcHQvcHVwcGV0bGFicy9iaW4gJiYgbG4gLXMgLi4vcHVwcGV0L2Jpbi9yMTBrIHIxMGsKCmdlbSBpbnN0YWxsIGdlbmVyYXRlLXB1cHBldGZpbGUgLS1uby1yZG9jIC0tbm8tcmkKY2QgL29wdC9wdXBwZXRsYWJzL2JpbiAmJiBsbiAtcyAuLi9wdXBwZXQvYmluL2dlbmVyYXRlLXB1cHBldGZpbGUgZ2VuZXJhdGUtcHVwcGV0ZmlsZQoKbXYgL2V0Yy9wdXBwZXRsYWJzL2NvZGUvZW52aXJvbm1lbnRzL3Byb2R1Y3Rpb24gL2V0Yy9wdXBwZXRsYWJzL2NvZGUvZW52aXJvbm1lbnRzL3Byb2R1Y3Rpb24uc2FtcGxlCmNkIC9ldGMvcHVwcGV0bGFicy9jb2RlL2Vudmlyb25tZW50cyAmJiBnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL3BtYXRzaW5vcG91bG9zL2RlcGxveV96b29rZWVwZXIuZ2l0IHByb2R1Y3Rpb24KCmNkIHByb2R1Y3Rpb24vcHVwcGV0CgpyMTBrIHB1cHBldGZpbGUgaW5zdGFsbCAtLXZlcmJvc2UKCi9vcHQvcHVwcGV0bGFicy9iaW4vcHVwcGV0IGFwcGx5IC9ldGMvcHVwcGV0bGFicy9jb2RlL2Vudmlyb25tZW50cy9wcm9kdWN0aW9uL3B1cHBldC9tYW5pZmVzdHMvCg=="
         }
       }
+    },
+    "Route53PrivateHostedZone": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+        "HostedZoneConfig": {
+          "Comment": "Private hosted zone for zookeepers.demo."
+        },
+        "Name": "zookeepers.demo",
+        "VPCs": [
+          {
+            "VPCId": {
+              "Ref": "VPC1"
+            },
+            "VPCRegion": {
+              "Ref": "Region"
+            }
+          }
+        ],
+        "HostedZoneTags": [
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ]
+      }
     }
   },
   "Outputs": {
@@ -240,7 +297,9 @@
         "Ref": "VPC1"
       },
       "Export": {
-        "Name": {"Fn::Sub": "${AWS::StackName}-VpcZookeepersId"}
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-VpcZookeepersId"
+        }
       }
     },
     "Subnet1": {
@@ -249,7 +308,9 @@
         "Ref": "Subnet1"
       },
       "Export": {
-        "Name": {"Fn::Sub": "${AWS::StackName}-Subnet1"}
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Subnet1"
+        }
       }
     },
     "Subnet2": {
@@ -258,7 +319,9 @@
         "Ref": "Subnet2"
       },
       "Export": {
-        "Name": {"Fn::Sub": "${AWS::StackName}-Subnet2"}
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Subnet2"
+        }
       }
     },
     "Subnet3": {
@@ -267,7 +330,9 @@
         "Ref": "Subnet3"
       },
       "Export": {
-        "Name": {"Fn::Sub": "${AWS::StackName}-Subnet3"}
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-Subnet3"
+        }
       }
     },
     "SecurityGroup": {
@@ -276,7 +341,20 @@
         "Ref": "SecurityGroup1"
       },
       "Export": {
-        "Name": {"Fn::Sub": "${AWS::StackName}-SecurityGroup"}
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-SecurityGroup"
+        }
+      }
+    },
+    "PrivateRoute53HostedZone": {
+      "Description": "The private hosted zone for the zookeeper demo.",
+      "Value": {
+        "Ref": "Route53PrivateHostedZone"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-PrivateRoute53HostedZone"
+        }
       }
     }
   }
