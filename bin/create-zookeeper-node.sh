@@ -19,7 +19,8 @@ ParameterKey=Ec2LaunchTemplateName,ParameterValue=${EC2_LAUNCH_TEMPLATE_NAME} \
 ParameterKey=SubnetId,ParameterValue="${VPC_STACK_NAME}-Subnet${NODE_ID}" \
 ParameterKey=InstanceType,ParameterValue=${ZOOKEEPER_NODE_INSTANCE_TYPE} \
 ParameterKey=NodeName,ParameterValue=${STACK_NAME} \
-ParameterKey=SecurityGroupName,ParameterValue="${VPC_STACK_NAME}-SecurityGroup"
+ParameterKey=SecurityGroupName,ParameterValue="${VPC_STACK_NAME}-SecurityGroup" \
+ParameterKey=Route53PrivateHostedZoneName,ParameterValue="${DOMAIN_NAME}"
 
 aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME}
 

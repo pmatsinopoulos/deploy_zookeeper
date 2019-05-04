@@ -19,6 +19,10 @@
     "NodeName": {
       "Type": "String",
       "Description": "The EC2 Instance name for the Zookeeper node."
+    },
+    "Route53PrivateHostedZoneName": {
+      "Type": "String",
+      "Description": "The Route 53 private hosted zone name for the Zookeeper cluster, e.g. 'zookeeper.demo'."
     }
   },
   "Resources": {
@@ -58,6 +62,26 @@
               "Ref": "NodeName"
             }
           }
+        ]
+      }
+    },
+    "RecordSet": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "Comment": {"Fn::Sub": "Zookeeper node ${NodeName} entry"},
+        "HostedZoneName": {"Fn::Join": ["", [{"Ref": "Route53PrivateHostedZoneName"}, "."]]},
+        "Name": {
+          "Fn::Join": [
+            "", [
+              {"Ref": "NodeName"}, ".",
+              {"Ref": "Route53PrivateHostedZoneName"}
+            ]
+          ]
+        },
+        "Type": "A",
+        "TTL": "300",
+        "ResourceRecords": [
+          {"Fn::GetAtt": ["ZookeeperNode", "PrivateIp"]}
         ]
       }
     }

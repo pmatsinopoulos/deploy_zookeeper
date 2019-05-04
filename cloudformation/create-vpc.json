@@ -7,6 +7,10 @@
     "Ec2LaunchTemplateName": {
       "Type": "String",
       "Description": "The name of the EC2 Launch Template to create"
+    },
+    "Route53PrivateHostedZoneName": {
+      "Type": "String",
+      "Description": "The Route 53 private hosted zone name, e.g. zookeepers.demo."
     }
   },
   "Resources": {
@@ -264,7 +268,7 @@
         "HostedZoneConfig": {
           "Comment": "Private hosted zone for zookeepers.demo."
         },
-        "Name": "zookeepers.demo",
+        "Name": {"Ref": "Route53PrivateHostedZoneName"},
         "VPCs": [
           {
             "VPCId": {
@@ -339,17 +343,6 @@
       "Export": {
         "Name": {
           "Fn::Sub": "${AWS::StackName}-SecurityGroup"
-        }
-      }
-    },
-    "PrivateRoute53HostedZone": {
-      "Description": "The private hosted zone for the zookeeper demo.",
-      "Value": {
-        "Ref": "Route53PrivateHostedZone"
-      },
-      "Export": {
-        "Name": {
-          "Fn::Sub": "${AWS::StackName}-PrivateRoute53HostedZone"
         }
       }
     }
