@@ -91,7 +91,7 @@
                 "SYSTEM_HOST_NAME=", {"Ref": "NodeName"}, ".", {"Ref": "Route53PrivateHostedZoneName"}, "\n",
                 "export SYSTEM_HOST_NAME=$(echo $SYSTEM_HOST_NAME | tr [:upper:] [:lower:])\n",
                 "hostnamectl set-hostname ${SYSTEM_HOST_NAME}\n",
-                "sed -ir 's/^127\\.0\\.0\\.1.*$/127\\.0\\.0\\.1 localhost '${SYSTEM_HOST_NAME}'/g' /etc/hosts\n",
+                "sed -ir 's/^127\\.0\\.0\\.1.*$/127\\.0\\.0\\.1 localhost/g' /etc/hosts\n",
                 "\n",
                 "export PATH=$PATH:/opt/puppetlabs/bin\n",
                 "\n",
