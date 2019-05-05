@@ -6,5 +6,7 @@ defaults:
   data_hash: yaml_data
 
 hierarchy:
+  - name: "Host specific data"
+    path: "zookeeper-hosts/%{facts.hostname}.yaml"
   - name: "Common values"
     path: "common.yaml"
