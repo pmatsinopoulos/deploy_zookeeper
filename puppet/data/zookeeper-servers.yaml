@@ -1,1 +1,3 @@
----\nzookeeper::servers:\n  - 'zookeepernode-1.zookeepers.demo'\n  - 'zookeepernode-1.zookeepers.demo'\n
+---
+zookeeper::servers:
+  - 'zookeepernode-1.zookeepers.demo'

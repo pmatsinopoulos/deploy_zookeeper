@@ -5,13 +5,6 @@ file { zookeeper_datalog_store_parent_directory_path:
   path   => dirname(lookup("zookeeper::datalogstore", String))
 }
 
-class { 'zookeeper':
-  servers => {
-    '1' => 'zookeepernode-1.zookeepers.demo',
-    '2' => 'zookeepernode-2.zookeepers.demo',
-  }
-}
-
 include zookeeper
 
 $zookeeper_bins = ['zkCli.sh', 'zkCleanup.sh', 'zkEnv.sh', 'zkServer.sh']
