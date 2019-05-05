@@ -61,7 +61,7 @@
             "GroupSet": [
               {"Fn::ImportValue": {"Ref": "SecurityGroupName"}},
               {"Fn::ImportValue": {"Ref": "SecurityGroupNameForElectionAndLeaderPorts"}},
-              {"Fn::ImportValue": {"Ref": "SecurityGroupNameForClientPort"}},
+              {"Fn::ImportValue": {"Ref": "SecurityGroupNameForClientPort"}}
             ]
           }
         ],
@@ -72,7 +72,52 @@
               "Ref": "NodeName"
             }
           }
-        ]
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/usr/bin/env bash\n",
+                "source /etc/lsb-release\n",
+                "wget https://apt.puppetlabs.com/puppet5-release-${DISTRIB_CODENAME}.deb\n",
+                "dpkg -i puppet5-release-${DISTRIB_CODENAME}.deb\n",
+                "apt-get update\n",
+                "apt-get -y install gcc make git\n",
+                "apt-get -y install puppet-agent\n",
+                "echo 'Defaults        secure_path=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/opt/puppetlabs/bin:/opt/puppetlabs/puppet/bin\"' >/etc/sudoers.d/puppet\n",
+                "\n",
+                "# Set the system hostname\n",
+                "SYSTEM_HOST_NAME=", {"Ref": "NodeName"}, ".", {"Ref": "Route53PrivateHostedZoneName"}, "\n",
+                "export SYSTEM_HOST_NAME=$(echo $SYSTEM_HOST_NAME | tr [:upper:] [:lower:])\n",
+                "hostnamectl set-hostname ${SYSTEM_HOST_NAME}\n",
+                "sed -ir 's/^127\\.0\\.0\\.1.*$/127\\.0\\.0\\.1 localhost '${SYSTEM_HOST_NAME}'/g' /etc/hosts\n",
+                "\n",
+                "export PATH=$PATH:/opt/puppetlabs/bin\n",
+                "\n",
+                "cd /opt/puppetlabs/bin && ln -s ../puppet/bin/gem gem\n",
+                "\n",
+                "gem install gpgme --no-rdoc --no-ri\n",
+                "gem install hiera-eyaml-gpg --no-rdoc --no-ri\n",
+                "\n",
+                "gem install r10k --no-rdoc --no-ri\n",
+                "cd /opt/puppetlabs/bin && ln -s ../puppet/bin/r10k r10k\n",
+                "\n",
+                "gem install generate-puppetfile --no-rdoc --no-ri\n",
+                "cd /opt/puppetlabs/bin && ln -s ../puppet/bin/generate-puppetfile generate-puppetfile\n",
+                "\n",
+                "mv /etc/puppetlabs/code/environments/production /etc/puppetlabs/code/environments/production.sample\n",
+                "cd /etc/puppetlabs/code/environments && git clone https://github.com/pmatsinopoulos/deploy_zookeeper.git production\n",
+                "\n",
+                "cd production/puppet\n",
+                "\n",
+                "r10k puppetfile install --verbose\n",
+                "\n",
+                "/opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/puppet/manifests/\n"
+              ]
+            ]
+          }
+        }
       }
     },
     "RecordSet": {
