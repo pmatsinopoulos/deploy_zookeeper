@@ -57,5 +57,8 @@ instance.
 6. Or I may need to use a DNS service that would resolve private names to private ips.
 7. Maybe, I should use an EC2 Launch Template that would install puppet-agent.
 
+### Next Steps:
 
-
+1. (Not Sure whether I want this) - Use 1 cloud formation stack for all the zookeeper nodes.
+1. Add Node on specific subnet so that I can add many nodes on same subnet. 
+1. Webhooks for Github - Hence will be able to update immediately.

@@ -11,6 +11,10 @@ source ${CONFIGURATION_FILE}
 
 NODE_ID=$2
 
+SUBNET_ID=$3
+
+
+
 # Include functions used by script
 # ---------------------------------
 INCLUDES_DIR="$(dirname "$0")/includes"
