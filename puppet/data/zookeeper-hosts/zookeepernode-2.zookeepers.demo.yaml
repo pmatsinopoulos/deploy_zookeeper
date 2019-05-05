@@ -1,2 +1,2 @@
 ---
-zookeeper::id: 2
+zookeeper::id: '2'
