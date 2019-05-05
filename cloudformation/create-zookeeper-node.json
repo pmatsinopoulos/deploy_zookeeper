@@ -16,6 +16,14 @@
       "Type": "String",
       "Description": "The security group that will be used to bind the network interface fo the EC2 instance."
     },
+    "SecurityGroupNameForElectionAndLeaderPorts": {
+      "Type": "String",
+      "Description": "The security group for Zookeeper election and leader ports."
+    },
+    "SecurityGroupNameForClientPort": {
+      "Type": "String",
+      "Description": "The security group for Zookeeper client port."
+    },
     "NodeName": {
       "Type": "String",
       "Description": "The EC2 Instance name for the Zookeeper node."
@@ -51,7 +59,9 @@
               }
             },
             "GroupSet": [
-              {"Fn::ImportValue": {"Ref": "SecurityGroupName"}}
+              {"Fn::ImportValue": {"Ref": "SecurityGroupName"}},
+              {"Fn::ImportValue": {"Ref": "SecurityGroupNameForElectionAndLeaderPorts"}},
+              {"Fn::ImportValue": {"Ref": "SecurityGroupNameForClientPort"}},
             ]
           }
         ],

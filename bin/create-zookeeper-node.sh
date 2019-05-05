@@ -20,6 +20,8 @@ ParameterKey=SubnetId,ParameterValue="${VPC_STACK_NAME}-Subnet${NODE_ID}" \
 ParameterKey=InstanceType,ParameterValue=${ZOOKEEPER_NODE_INSTANCE_TYPE} \
 ParameterKey=NodeName,ParameterValue=${STACK_NAME} \
 ParameterKey=SecurityGroupName,ParameterValue="${VPC_STACK_NAME}-SecurityGroup" \
+ParameterKey=SecurityGroupNameForElectionAndLeaderPorts,ParameterValue="${VPC_STACK_NAME}-SecurityGroupZookeepersElectionAndLeaderPorts" \
+ParameterKey=SecurityGroupNameForClientPort,ParameterValue="${VPC_STACK_NAME}-SecurityGroupZookeepersClientPort" \
 ParameterKey=Route53PrivateHostedZoneName,ParameterValue="${DOMAIN_NAME}"
 
 aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME}

@@ -63,6 +63,116 @@
         }
       }
     },
+    "SecurityGroupZookeeperElectionAndLeaderPorts": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupName": "zookeepers-election-and-leader-ports",
+        "GroupDescription": "Allows TCP traffic in election and leader ports",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "zookeepers-election-and-leader-ports"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC1"
+        }
+      }
+    },
+    "SecurityGroupZookeeperElectionPortIngress": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "Description": "Ingress rule to allow election port for zookeepers.",
+        "FromPort": 2888,
+        "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "IpProtocol": "TCP",
+        "SourceSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "ToPort": 2888
+      }
+    },
+    "SecurityGroupZookeeperLeaderPortIngress": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "Description": "Ingress rule to allow election and leader ports for zookeepers.",
+        "FromPort": 3888,
+        "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "IpProtocol": "TCP",
+        "SourceSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "ToPort": 3888
+      }
+    },
+    "SecurityGroupZookeeperElectionPortEgress": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "Description": "Egress rule to allow election port for zookeepers.",
+        "DestinationSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "FromPort": 2888,
+        "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "IpProtocol": "TCP",
+        "ToPort": 2888
+      }
+    },
+    "SecurityGroupZookeeperLeaderPortEgress": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "Description": "Egress rule to allow election and leader ports for zookeepers.",
+        "DestinationSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "FromPort": 3888,
+        "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
+        "IpProtocol": "TCP",
+        "ToPort": 3888
+      }
+    },
+    "SecurityGroupZookeeperClientPort": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupName": "zookeepers-client-port",
+        "GroupDescription": "Allows TCP traffic in client port of zookeeper node.",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "zookeepers-client-port"
+          },
+          {
+            "Key": "Environment",
+            "Value": {
+              "Ref": "Environment"
+            }
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC1"
+        }
+      }
+    },
+    "SecurityGroupZookeeperClientPortIngress": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "Description": "Ingress rule to allow client port for zookeepers.",
+        "FromPort": 2181,
+        "GroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
+        "IpProtocol": "TCP",
+        "SourceSecurityGroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
+        "ToPort": 2181
+      }
+    },
+    "SecurityGroupZookeeperClientPortEgress": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "Description": "Egress rule to allow client port for zookeepers.",
+        "DestinationSecurityGroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
+        "FromPort": 2181,
+        "GroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
+        "IpProtocol": "TCP",
+        "ToPort": 2181
+      }
+    },
     "Subnet1": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
@@ -268,7 +378,9 @@
         "HostedZoneConfig": {
           "Comment": "Private hosted zone for zookeepers.demo."
         },
-        "Name": {"Ref": "Route53PrivateHostedZoneName"},
+        "Name": {
+          "Ref": "Route53PrivateHostedZoneName"
+        },
         "VPCs": [
           {
             "VPCId": {
@@ -335,7 +447,7 @@
         }
       }
     },
-    "SecurityGroup": {
+    "SecurityGroup1": {
       "Description": "The security group that will be used to bind EC2 instance network interface.",
       "Value": {
         "Ref": "SecurityGroup1"
@@ -343,6 +455,28 @@
       "Export": {
         "Name": {
           "Fn::Sub": "${AWS::StackName}-SecurityGroup"
+        }
+      }
+    },
+    "SecurityGroupZookeeperElectionAndLeaderPorts": {
+      "Description": "The security group that will be used to bind EC2 instance network interface, for election and leader ports.",
+      "Value": {
+        "Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-SecurityGroupZookeepersElectionAndLeaderPorts"
+        }
+      }
+    },
+    "SecurityGroupZookeeperClientPort": {
+      "Description": "The security group that will be used to bind EC2 instance network interface, for zookeeper client ports.",
+      "Value": {
+        "Ref": "SecurityGroupZookeeperClientPort"
+      },
+      "Export": {
+        "Name": {
+          "Fn::Sub": "${AWS::StackName}-SecurityGroupZookeepersClientPort"
         }
       }
     }
