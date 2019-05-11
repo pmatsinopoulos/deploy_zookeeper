@@ -29,6 +29,10 @@ rm ${FILE_WITH_DATA_FOR_ZOOKEEPER_CONFIG}
 # I need to update the zookeeper server inside hiera database
 # -----------------------------------------------------------
 update_hiera_zookeeper_servers_yaml
+
+git add ${HIERA_DIRECTORY_WITH_DATA}
+git commit -m "Removed file ${FILE_WITH_DATA_FOR_ZOOKEEPER_CONFIG} and updated the ${SERVERS_FILE} file"
+git push origin master
 # --- end of updating the zookeeper servers inside hiera database
 
 aws cloudformation delete-stack --stack-name ${STACK_NAME}
