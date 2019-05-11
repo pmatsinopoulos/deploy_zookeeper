@@ -47,7 +47,7 @@ git push origin master
 aws cloudformation create-stack --stack-name ${STACK_NAME} --template-body file://${ZOOKEEPER_NODE_CLOUD_FORMATION_FILE} \
 --parameters \
 ParameterKey=Ec2LaunchTemplateName,ParameterValue=${EC2_LAUNCH_TEMPLATE_NAME} \
-ParameterKey=SubnetId,ParameterValue="${VPC_STACK_NAME}-Subnet${NODE_ID}" \
+ParameterKey=SubnetId,ParameterValue="${VPC_STACK_NAME}-Subnet${SUBNET_ID}" \
 ParameterKey=InstanceType,ParameterValue=${ZOOKEEPER_NODE_INSTANCE_TYPE} \
 ParameterKey=NodeName,ParameterValue=${STACK_NAME} \
 ParameterKey=SecurityGroupName,ParameterValue="${VPC_STACK_NAME}-SecurityGroup" \
