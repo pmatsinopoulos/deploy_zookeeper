@@ -1,5 +1,5 @@
 update_hiera_zookeeper_servers_yaml() {
-    local NUMBER_OF_SERVERS=$(ls -l ${HIERA_DIRECTORY_WITH_ZOOKEEPER_HOSTS_DATA} | wc -l)
+    local NUMBER_OF_SERVERS=$(ls ${HIERA_DIRECTORY_WITH_ZOOKEEPER_HOSTS_DATA} | wc -l)
     echo "NUMBER_OF_SERVER found ${NUMBER_OF_SERVERS}"
 
     local NAME_FOR_NODE=""
