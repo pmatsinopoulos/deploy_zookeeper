@@ -1,3 +1,2 @@
 ---
 zookeeper::servers:
-  - 'zookeepernode-2.zookeepers.demo'
