@@ -4,3 +4,4 @@ zookeeper::servers:
   - 'zookeepernode-2.zookeepers.demo'
   - 'zookeepernode-3.zookeepers.demo'
   - 'zookeepernode-4.zookeepers.demo'
+  - 'zookeepernode-5.zookeepers.demo'
