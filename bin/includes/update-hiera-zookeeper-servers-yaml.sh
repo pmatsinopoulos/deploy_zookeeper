@@ -14,7 +14,7 @@ EOF
       NAME_FOR_NODE="${ZOOKEEPER_NODE_STACK_NAME}-${i}"
       NAME_FOR_NODE=$(echo ${NAME_FOR_NODE} | tr [:upper:] [:lower:]).${DOMAIN_NAME}
 
-      echo "(index: ${i}): About to add the node ${NODE_FOR_NAME} into ${SERVERS_FILE}..."
+      echo "(index: ${i}): About to add the node ${NAME_FOR_NODE} into ${SERVERS_FILE}..."
 
       cat << EOF >> ${SERVERS_FILE}
   - '${NAME_FOR_NODE}'
