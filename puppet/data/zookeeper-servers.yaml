@@ -6,3 +6,4 @@ zookeeper::servers:
   '4': 'zookeepernode-4.zookeepers.demo'
   '5': 'zookeepernode-5.zookeepers.demo'
   '6': 'zookeepernode-6.zookeepers.demo'
+  '7': 'zookeepernode-7.zookeepers.demo'
