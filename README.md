@@ -69,5 +69,5 @@ is facing public internet. Yes. We can use a bastion host. But wwill not do it n
      For example if we add the node with id "2" first, it creates: `server.1=zookeepernode-2.zookeepers.demo`, which
      has wrong id in `server.XXXX`. Note that the "myid" is created correctly with value `2`.
      So, we need to sort that out.
-1. [] Shell script arguments. Need to check and also add a --help argument that would print information.     
+1. [DONE] Shell script arguments. Need to check and also add a --help argument that would print information.     
 1. Webhooks for Github - Hence will be able to update immediately.
