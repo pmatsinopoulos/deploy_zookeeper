@@ -2,9 +2,20 @@
 
 # We need to create a stack with the zookeeper nodes.
 
-# TODO: NEED TO CHECK/VALIDATE THE ARGUMENTS
-
 source $(pwd)/.env
+
+# Include functions used by script
+# ---------------------------------
+INCLUDES_DIR="$(dirname "$0")/includes"
+
+. "$INCLUDES_DIR/update-hiera-zookeeper-servers-yaml.sh"
+. "$INCLUDES_DIR/display-usage-information.sh"
+# --- end of including functions used by script ---
+
+if [ "$#" -ne 3 ];then
+  display_usage_information_for_creating_zookeeper_node
+  exit 1
+fi
 
 CONFIGURATION_FILE=$1
 source ${CONFIGURATION_FILE}
@@ -13,15 +24,11 @@ NODE_ID=$2
 
 SUBNET_ID=$3
 
-
-
-# Include functions used by script
-# ---------------------------------
-INCLUDES_DIR="$(dirname "$0")/includes"
-
-. "$INCLUDES_DIR/update-hiera-zookeeper-servers-yaml.sh"
-# --- end of including functions used by script ---
-
+if ((${SUBNET_ID} < 1 || ${SUBNET_ID} > 3)); then
+  echo "ERROR: Wrong Subnet index!" >&2
+  display_usage_information_for_creating_zookeeper_node
+  exit 1
+fi
 
 STACK_NAME="${ZOOKEEPER_NODE_STACK_NAME}-${NODE_ID}"
 FULLY_QUALIFIED_DOMAIN_NAME=$(echo ${STACK_NAME} | tr [:upper:] [:lower:]).${DOMAIN_NAME}
