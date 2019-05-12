@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-# TODO: NEED TO CHECK/VALIDATE THE ARGUMENTS
+set -e
+
+if [ "$#" -ne 1 ];then
+  echo "You need to give the zookeepers configuration file as argument to the script " >&2
+  exit 1
+fi
 
 source $(pwd)/.env
 
-source $1
+CONFIGURATION_FILE=$1
+source ${CONFIGURATION_FILE}
 
 aws cloudformation delete-stack --stack-name ${VPC_STACK_NAME}
 aws cloudformation wait stack-delete-complete --stack-name ${VPC_STACK_NAME}
