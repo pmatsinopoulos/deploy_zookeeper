@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# We need to create a stack with the zookeeper nodes.
+set -e
 
 source $(pwd)/.env
 
