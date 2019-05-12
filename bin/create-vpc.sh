@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-# TODO: NEED TO CHECK/VALIDATE THE ARGUMENTS
+set -e
+
+if [ "$#" -ne 1 ];then
+  echo "You need to give the zookeepers configuration file as argument to the script " >&2
+  exit 1
+fi
 
 source $(pwd)/.env
 
