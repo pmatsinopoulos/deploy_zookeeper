@@ -2,10 +2,8 @@
 zookeeper::servers:
   '1': 'zookeepernode-1.zookeepers.demo'
   '2': 'zookeepernode-2.zookeepers.demo'
-  '3': 'zookeepernode-3.zookeepers.demo'
   '4': 'zookeepernode-4.zookeepers.demo'
   '5': 'zookeepernode-5.zookeepers.demo'
   '6': 'zookeepernode-6.zookeepers.demo'
   '7': 'zookeepernode-7.zookeepers.demo'
   '8': 'zookeepernode-8.zookeepers.demo'
-  '9': 'zookeepernode-9.zookeepers.demo'
