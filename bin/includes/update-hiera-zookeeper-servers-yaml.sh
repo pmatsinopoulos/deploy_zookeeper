@@ -1,8 +1,9 @@
 update_hiera_zookeeper_servers_yaml() {
     local SERVERS_FILES_ARRAY=()
-    read -r -a SERVERS_FILES_ARRAY <<< $(ls ${HIERA_DIRECTORY_WITH_ZOOKEEPER_HOSTS_DATA})
-
     local NAME_FOR_NODE=""
+    local EXTRACTED_NODE_INTEGER=0
+
+    read -r -a SERVERS_FILES_ARRAY <<< $(ls ${HIERA_DIRECTORY_WITH_ZOOKEEPER_HOSTS_DATA})
 
     cat << EOF > ${SERVERS_FILE}
 ---
@@ -13,7 +14,7 @@ EOF
 
       NAME_FOR_NODE=${item%.yaml}
 
-      local EXTRACTED_NODE_INTEGER=$(echo ${NAME_FOR_NODE} | cut -d '-' -f2 | cut -d '.' -f 1)
+      EXTRACTED_NODE_INTEGER=$(echo ${NAME_FOR_NODE} | cut -d '-' -f2 | cut -d '.' -f 1)
 
       echo "About to add the node ${NAME_FOR_NODE} into ${SERVERS_FILE}. Node Integer is: ${EXTRACTED_NODE_INTEGER}..."
 
