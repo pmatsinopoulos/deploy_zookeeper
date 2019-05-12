@@ -1,6 +1,5 @@
 ---
 zookeeper::servers:
-  '1': 'zookeepernode-1.zookeepers.demo'
   '2': 'zookeepernode-2.zookeepers.demo'
   '4': 'zookeepernode-4.zookeepers.demo'
   '5': 'zookeepernode-5.zookeepers.demo'
