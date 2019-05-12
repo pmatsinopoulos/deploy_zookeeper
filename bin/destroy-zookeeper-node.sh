@@ -36,4 +36,5 @@ git push origin master
 # --- end of updating the zookeeper servers inside hiera database
 
 aws cloudformation delete-stack --stack-name ${STACK_NAME}
+echo "Waiting for stack to be deleted..."
 aws cloudformation wait stack-delete-complete --stack-name ${STACK_NAME}

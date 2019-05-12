@@ -55,5 +55,6 @@ ParameterKey=SecurityGroupNameForElectionAndLeaderPorts,ParameterValue="${VPC_ST
 ParameterKey=SecurityGroupNameForClientPort,ParameterValue="${VPC_STACK_NAME}-SecurityGroupZookeepersClientPort" \
 ParameterKey=Route53PrivateHostedZoneName,ParameterValue="${DOMAIN_NAME}"
 
+echo "Waiting for stack to be created..."
 aws cloudformation wait stack-create-complete --stack-name ${STACK_NAME}
 
