@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
 
-
-#!/usr/bin/env bash
-
-# TODO: NEED TO CHECK/VALIDATE THE ARGUMENTS
-
-source $(pwd)/.env
-
-source $1
-
-NODE_ID=$2
+set -e
 
 # Include functions used by script
 # ---------------------------------
 INCLUDES_DIR="$(dirname "$0")/includes"
 
 . "$INCLUDES_DIR/update-hiera-zookeeper-servers-yaml.sh"
+. "$INCLUDES_DIR/display-usage-information.sh"
 # --- end of including functions used by script ---
+
+if [ "$#" -ne 2 ];then
+  display_usage_information_for_destroying_zookeeper_node
+  exit 1
+fi
+
+source $(pwd)/.env
+
+source $1
+
+NODE_ID=$2
 
 STACK_NAME="${ZOOKEEPER_NODE_STACK_NAME}-${NODE_ID}"
 
