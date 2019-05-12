@@ -60,5 +60,14 @@ instance.
 ### Next Steps:
 
 1. (Not Sure whether I want this) - Use 1 cloud formation stack for all the zookeeper nodes.
-1. Add Node on specific subnet so that I can add many nodes on same subnet. 
+1. [DONE] Add Node on specific subnet so that I can add many nodes on same subnet.
+1. [Will not do now] Do I have to have public IPs for Zookeeper nodes? Or is it enough to have a node facing Public internet
+and allow ssh only from this node to Zookeeper nodes and allow public ssh access only to the node that
+is facing public internet. Yes. We can use a bastion host. But wwill not do it now.
+1. [DONE] Allow addition and deletion of nodes out of order. For example add node 2, then node 1, then node 4, then node 3. 
+ --- Almost done. The problem is that the zoo.cfg created has the wrong `server.XXXXX` key name. The value is correct.
+     For example if we add the node with id "2" first, it creates: `server.1=zookeepernode-2.zookeepers.demo`, which
+     has wrong id in `server.XXXX`. Note that the "myid" is created correctly with value `2`.
+     So, we need to sort that out.
+1. [] Shell script arguments. Need to check and also add a --help argument that would print information.     
 1. Webhooks for Github - Hence will be able to update immediately.
