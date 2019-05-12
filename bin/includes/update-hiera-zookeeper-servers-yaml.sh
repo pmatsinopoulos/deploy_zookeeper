@@ -15,8 +15,10 @@ EOF
 
       echo "About to add the node ${NAME_FOR_NODE} into ${SERVERS_FILE}..."
 
+      local EXTRACTED_NODE_INTEGER=$(echo ${NAME_FOR_NODE} | cut -d '-' -f2 | cut -d '.' -f 1)
+
       cat << EOF >> ${SERVERS_FILE}
-  - '${NAME_FOR_NODE}'
+  '${EXTRACTED_NODE_INTEGER}': '${NAME_FOR_NODE}'
 EOF
 
     done
