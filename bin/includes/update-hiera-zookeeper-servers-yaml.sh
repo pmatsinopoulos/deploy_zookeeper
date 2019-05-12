@@ -13,9 +13,9 @@ EOF
 
       NAME_FOR_NODE=${item%.yaml}
 
-      echo "About to add the node ${NAME_FOR_NODE} into ${SERVERS_FILE}..."
-
       local EXTRACTED_NODE_INTEGER=$(echo ${NAME_FOR_NODE} | cut -d '-' -f2 | cut -d '.' -f 1)
+
+      echo "About to add the node ${NAME_FOR_NODE} into ${SERVERS_FILE}. Node Integer is: ${EXTRACTED_NODE_INTEGER}..."
 
       cat << EOF >> ${SERVERS_FILE}
   '${EXTRACTED_NODE_INTEGER}': '${NAME_FOR_NODE}'
