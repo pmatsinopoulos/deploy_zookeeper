@@ -31,6 +31,10 @@
     "Route53PrivateHostedZoneName": {
       "Type": "String",
       "Description": "The Route 53 private hosted zone name for the Zookeeper cluster, e.g. 'zookeeper.demo'."
+    },
+    "GitRemoteRepositoryUrl": {
+      "Type": "String",
+      "Description": "The git remote repository URL used for each Zookeeper node to retrieve its Puppet configuration."
     }
   },
   "Resources": {
@@ -107,7 +111,7 @@
                 "cd /opt/puppetlabs/bin && ln -s ../puppet/bin/generate-puppetfile generate-puppetfile\n",
                 "\n",
                 "mv /etc/puppetlabs/code/environments/production /etc/puppetlabs/code/environments/production.sample\n",
-                "cd /etc/puppetlabs/code/environments && git clone https://github.com/pmatsinopoulos/deploy_zookeeper.git production\n",
+                "cd /etc/puppetlabs/code/environments && git clone ", {"Ref": "GitRemoteRepositoryUrl"}, " production\n",
                 "\n",
                 "cd production/puppet\n",
                 "\n",

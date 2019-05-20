@@ -53,6 +53,7 @@ git push origin master
 
 aws cloudformation create-stack --stack-name ${STACK_NAME} --template-body file://${ZOOKEEPER_NODE_CLOUD_FORMATION_FILE} \
 --parameters \
+ParameterKey=GitRemoteRepositoryUrl,ParameterValue=$(git config --get remote.origin.url) \
 ParameterKey=Ec2LaunchTemplateName,ParameterValue=${EC2_LAUNCH_TEMPLATE_NAME} \
 ParameterKey=SubnetId,ParameterValue="${VPC_STACK_NAME}-Subnet${SUBNET_ID}" \
 ParameterKey=InstanceType,ParameterValue=${ZOOKEEPER_NODE_INSTANCE_TYPE} \
