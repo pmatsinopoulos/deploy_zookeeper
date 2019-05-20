@@ -1,3 +1,3 @@
 ---
 zookeeper::servers:
-  'Pipfile README': 'Pipfile README.md bin cloudformation config environment.conf hiera.yaml puppet'
+  '1': 'zookeepernode-1.zookeepers.demo'
