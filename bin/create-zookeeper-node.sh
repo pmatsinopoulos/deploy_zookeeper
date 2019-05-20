@@ -51,9 +51,19 @@ git add ${HIERA_DIRECTORY_WITH_DATA}
 git commit -m "Created file ${FILE_WITH_DATA_FOR_ZOOKEEPER_CONFIG} and updated the ${SERVERS_FILE} file"
 git push origin master
 
+GIT_REPOSITORY=deploy_zookeeper
+# Convert git ssh access to git https access.
+REMOTE_URL=$(git ls-remote --get-url origin)
+if [[ ${REMOTE_URL} =~ ^git ]]; then
+    GIT_USERNAME=$(echo ${REMOTE_URL} | cut -d':' -f2 | cut -d'/' -f1)
+    GIT_HTTPS_URL="https://github.com/${GIT_USERNAME}/${GIT_REPOSITORY}.git"
+else
+    GIT_HTTPS_URL=${REMOTE_URL}
+fi
+
 aws cloudformation create-stack --stack-name ${STACK_NAME} --template-body file://${ZOOKEEPER_NODE_CLOUD_FORMATION_FILE} \
 --parameters \
-ParameterKey=GitRemoteRepositoryUrl,ParameterValue=$(git config --get remote.origin.url) \
+ParameterKey=GitRemoteRepositoryUrl,ParameterValue=${GIT_HTTPS_URL} \
 ParameterKey=Ec2LaunchTemplateName,ParameterValue=${EC2_LAUNCH_TEMPLATE_NAME} \
 ParameterKey=SubnetId,ParameterValue="${VPC_STACK_NAME}-Subnet${SUBNET_ID}" \
 ParameterKey=InstanceType,ParameterValue=${ZOOKEEPER_NODE_INSTANCE_TYPE} \
