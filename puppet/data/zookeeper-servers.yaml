@@ -1,3 +1,2 @@
 ---
 zookeeper::servers:
-  'Pipfile Pipfile': 'Pipfile Pipfile.lock README.md bin cloudformation config environment.conf hiera.yaml puppet'
