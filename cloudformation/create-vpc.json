@@ -11,6 +11,14 @@
     "Route53PrivateHostedZoneName": {
       "Type": "String",
       "Description": "The Route 53 private hosted zone name, e.g. zookeepers.demo."
+    },
+    "ZookeeperNodeElectionPort": {
+      "Type": "String",
+      "Description": "The port exposed by ZookeeperNode for the Election process."
+    },
+    "ZookeeperNodeLeaderPort": {
+      "Type": "String",
+      "Description": "The port exposed by ZookeeperNode for the Leader communication process."
     }
   },
   "Resources": {
@@ -89,22 +97,22 @@
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "Description": "Ingress rule to allow election port for zookeepers.",
-        "FromPort": 2888,
+        "FromPort": {"Ref": "ZookeeperNodeElectionPort"},
         "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
         "IpProtocol": "TCP",
         "SourceSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
-        "ToPort": 2888
+        "ToPort": {"Ref": "ZookeeperNodeElectionPort"}
       }
     },
     "SecurityGroupZookeeperLeaderPortIngress": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "Description": "Ingress rule to allow election and leader ports for zookeepers.",
-        "FromPort": 3888,
+        "FromPort": {"Ref": "ZookeeperNodeLeaderPort"},
         "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
         "IpProtocol": "TCP",
         "SourceSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
-        "ToPort": 3888
+        "ToPort": {"Ref": "ZookeeperNodeLeaderPort"}
       }
     },
     "SecurityGroupZookeeperElectionPortEgress": {
@@ -112,10 +120,10 @@
       "Properties": {
         "Description": "Egress rule to allow election port for zookeepers.",
         "DestinationSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
-        "FromPort": 2888,
+        "FromPort": {"Ref": "ZookeeperNodeElectionPort"},
         "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
         "IpProtocol": "TCP",
-        "ToPort": 2888
+        "ToPort": {"Ref": "ZookeeperNodeElectionPort"}
       }
     },
     "SecurityGroupZookeeperLeaderPortEgress": {
@@ -123,10 +131,10 @@
       "Properties": {
         "Description": "Egress rule to allow election and leader ports for zookeepers.",
         "DestinationSecurityGroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
-        "FromPort": 3888,
+        "FromPort": {"Ref": "ZookeeperNodeLeaderPort"},
         "GroupId": {"Ref": "SecurityGroupZookeeperElectionAndLeaderPorts"},
         "IpProtocol": "TCP",
-        "ToPort": 3888
+        "ToPort": {"Ref": "ZookeeperNodeLeaderPort"}
       }
     },
     "SecurityGroupZookeeperClientPort": {
