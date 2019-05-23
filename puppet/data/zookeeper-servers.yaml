@@ -1,5 +1,6 @@
 ---
 zookeeper::servers:
-  'Pipfile Pipfile': 'Pipfile Pipfile.lock README.md bin cloudformation config environment.conf hiera.yaml puppet'
-zookeeper::election_port: 2889
-zookeeper::leader_port: 3889
+  '1': 'zookeepernode-1.zookeepers.demo'
+zookeeper::client_port: 2182
+zookeeper::election_port: 2899
+zookeeper::leader_port: 3899
