@@ -25,6 +25,7 @@ EOF
     done
 
     cat << EOF >> ${SERVERS_FILE}
+zookeeper::client_port: ${ZOOKEEPER_NODE_CLIENT_PORT}
 zookeeper::election_port: ${ZOOKEEPER_NODE_ELECTION_PORT}
 zookeeper::leader_port: ${ZOOKEEPER_NODE_LEADER_PORT}
 EOF

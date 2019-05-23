@@ -17,6 +17,7 @@ aws cloudformation create-stack --stack-name ${VPC_STACK_NAME} --template-body f
 ParameterKey=Environment,ParameterValue=${ENVIRONMENT} \
 ParameterKey=Ec2LaunchTemplateName,ParameterValue=${EC2_LAUNCH_TEMPLATE_NAME} \
 ParameterKey=Route53PrivateHostedZoneName,ParameterValue=${DOMAIN_NAME} \
+ParameterKey=ZookeeperNodeClientPort,ParameterValue=${ZOOKEEPER_NODE_CLIENT_PORT} \
 ParameterKey=ZookeeperNodeElectionPort,ParameterValue=${ZOOKEEPER_NODE_ELECTION_PORT} \
 ParameterKey=ZookeeperNodeLeaderPort,ParameterValue=${ZOOKEEPER_NODE_LEADER_PORT}
 

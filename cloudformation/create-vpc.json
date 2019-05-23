@@ -12,6 +12,10 @@
       "Type": "String",
       "Description": "The Route 53 private hosted zone name, e.g. zookeepers.demo."
     },
+    "ZookeeperNodeClientPort": {
+      "Type": "String",
+      "Description": "The port exposed by ZookeeperNode for clients to connect."
+    },
     "ZookeeperNodeElectionPort": {
       "Type": "String",
       "Description": "The port exposed by ZookeeperNode for the Election process."
@@ -163,11 +167,11 @@
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "Description": "Ingress rule to allow client port for zookeepers.",
-        "FromPort": 2181,
+        "FromPort": {"Ref": "ZookeeperNodeClientPort"},
         "GroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
         "IpProtocol": "TCP",
         "SourceSecurityGroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
-        "ToPort": 2181
+        "ToPort": {"Ref": "ZookeeperNodeClientPort"}
       }
     },
     "SecurityGroupZookeeperClientPortEgress": {
@@ -175,10 +179,10 @@
       "Properties": {
         "Description": "Egress rule to allow client port for zookeepers.",
         "DestinationSecurityGroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
-        "FromPort": 2181,
+        "FromPort": {"Ref": "ZookeeperNodeClientPort"},
         "GroupId": {"Ref": "SecurityGroupZookeeperClientPort"},
         "IpProtocol": "TCP",
-        "ToPort": 2181
+        "ToPort": {"Ref": "ZookeeperNodeClientPort"}
       }
     },
     "Subnet1": {
