@@ -1,6 +1,7 @@
 ---
 zookeeper::servers:
   '1': 'zookeepernode-1.zookeepers.demo'
+  '2': 'zookeepernode-2.zookeepers.demo'
 zookeeper::client_port: 2182
 zookeeper::election_port: 2899
 zookeeper::leader_port: 3899
