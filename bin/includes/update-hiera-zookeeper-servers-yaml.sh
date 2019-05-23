@@ -23,4 +23,9 @@ EOF
   '${EXTRACTED_NODE_INTEGER}': '${NAME_FOR_NODE}'
 EOF
     done
+
+    cat << EOF > ${SERVERS_FILE}
+zookeeper::election_port: ${ZOOKEEPER_NODE_ELECTION_PORT}
+zookeeper:leader_port: ${ZOOKEEPER_NODE_LEADER_PORT}
+EOF
 }
